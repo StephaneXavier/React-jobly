@@ -5,6 +5,7 @@ import CompanyCard from './CompanyCard';
 import Login from './Login';
 import Register from './Register';
 import Profile from './Profile'
+import Jobs from './Jobs';
 import { Route, Switch } from 'react-router-dom'
 
 const Routes = ({ loggedIn }) => {
@@ -14,6 +15,7 @@ const Routes = ({ loggedIn }) => {
             <Switch>
                 <Route exact path='/companies'> <Companies /></Route>
                 <Route exact path='/companies/:name'> <CompanyCard /></Route>
+                <Route exact path='/jobs'> <Jobs /></Route>
                 <Route exact path='/login'> <Login /></Route>
                 <Route exact path='/profile'> <Profile /></Route>
                 <Route exact path='/register'> <Register /></Route>

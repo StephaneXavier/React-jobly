@@ -4,15 +4,14 @@ import LoggedInContext from './LoggedInContext'
 import { JoblyApi } from './api';
 import CompanyCard from './CompanyCard';
 
+
 const Companies = () => {
     const [companies, setCompanies] = useState([]);
     const [filter, setFilter] = useState('')
     const loggedIn = useContext(LoggedInContext);
 
-    console.log('in Companies component, current filter is', filter)
-
-
-    function addfilter(filter){
+ 
+    function addFilter(filter){
         setFilter(filter)
     }
 
@@ -41,9 +40,9 @@ const Companies = () => {
 
     return (
         <div className='Companies'>
-            <CompaniesSearchForm addfilter={addfilter} />
+            <CompaniesSearchForm addFilter={addFilter} />
             <div className='Companies-CompanyCard-list'>
-                {companies.map(company => <CompanyCard company={company} />)}
+                {companies.map((company,idx) => <CompanyCard company={company} key={idx} />)}
             </div>
 
 

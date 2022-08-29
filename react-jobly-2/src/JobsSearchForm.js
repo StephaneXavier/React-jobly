@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { JoblyApi } from './api';
 
 
-const CompaniesSearchForm = ({ addFilter }) => {
+const JobsSearchForm = ({ addFilter }) => {
     const [searchVal, setSearchVal] = useState('');
-    const history = useHistory()
-
     
 
     function handleChange(e) {
@@ -32,7 +29,7 @@ const CompaniesSearchForm = ({ addFilter }) => {
                     onChange={handleChange}
                     id="search"
                     name="search"
-                    placeholder="enter company name here"
+                    placeholder="enter job name here"
                     type="text"
                 />
                 <Button>
@@ -44,4 +41,4 @@ const CompaniesSearchForm = ({ addFilter }) => {
     )
 }
 
-export default CompaniesSearchForm
+export default JobsSearchForm
