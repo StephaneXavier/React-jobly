@@ -43,6 +43,16 @@ class JoblyApi {
     return res.company;
   }
 
+  static async getCompanies() {
+    let res = await this.request('companies')
+    return res.companies
+  }
+
+  static async getFilteredCompanies(filter){
+    let res = await this.request(`companies`, {name:filter})
+    return res.companies
+  }
+
   // obviously, you'll add a lot here ...
 }
 
@@ -50,3 +60,7 @@ class JoblyApi {
 JoblyApi.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
     "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
     "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
+
+
+
+export {JoblyApi}

@@ -1,6 +1,9 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import LoggedInContext from './LoggedInContext';
 
-const Home = ({ loggedIn }) => {
+
+const Home = () => {
+const loggedIn = useContext(LoggedInContext)
 
     return (
         <>

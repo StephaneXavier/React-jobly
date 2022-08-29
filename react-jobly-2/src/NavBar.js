@@ -1,19 +1,18 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import LoggedInContext from './LoggedInContext';
 import { Navbar, NavItem, Nav } from 'reactstrap';
 import { NavLink, Link } from 'react-router-dom';
 import './NavBar.css';
 
 
-const NavBar = ({ loggedIn }) => {
-    const click = (e) => {
-        const name = e.target
-        console.log(`clicked ${name}`)
-        console.log(e.target)
-    }
+const NavBar = () => {
+    const loggedIn = useContext(LoggedInContext)
+
+
     return (
         <div className='NavBar'>
             <Navbar expand="md">
-                <Link to="/" className="navbar-brand" name='Jobly' onClick={click}>
+                <Link to="/" className="navbar-brand" name='Jobly'>
                     Jobly
                 </Link>
 
@@ -21,7 +20,7 @@ const NavBar = ({ loggedIn }) => {
                 {loggedIn ?
                     <Nav className="ml-auto" navbar>
                         <NavItem>
-                            <NavLink to="/companies" onClick={click}>Companies</NavLink>
+                            <NavLink to="/companies" >Companies</NavLink>
                         </NavItem>
                         <NavItem>
                             <NavLink active to='/jobs'>Jobs</NavLink>

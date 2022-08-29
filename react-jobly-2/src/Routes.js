@@ -1,7 +1,7 @@
 import React from 'react';
 import Home from './Home';
 import Companies from './Companies';
-import Company from './Company';
+import CompanyCard from './CompanyCard';
 import Login from './Login';
 import Register from './Register';
 import Profile from './Profile'
@@ -13,7 +13,7 @@ const Routes = ({ loggedIn }) => {
         <div>
             <Switch>
                 <Route exact path='/companies'> <Companies /></Route>
-                <Route exact path='/companies/:name'> <Company /></Route>
+                <Route exact path='/companies/:name'> <CompanyCard /></Route>
                 <Route exact path='/login'> <Login /></Route>
                 <Route exact path='/profile'> <Profile /></Route>
                 <Route exact path='/register'> <Register /></Route>
