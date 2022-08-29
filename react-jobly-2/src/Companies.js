@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import CompaniesSearchForm from './CompaniesSearchForm';
-import LoggedInContext from './LoggedInContext'
+import LoggedInContext from './UserInfoContext'
 import { JoblyApi } from './api';
 import CompanyCard from './CompanyCard';
 

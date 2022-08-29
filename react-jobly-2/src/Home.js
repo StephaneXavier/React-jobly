@@ -1,13 +1,13 @@
 import React, {useContext} from 'react';
-import LoggedInContext from './LoggedInContext';
+import userInfoContext from './UserInfoContext';
 
 
 const Home = () => {
-const loggedIn = useContext(LoggedInContext)
+const userInfo = useContext(userInfoContext)
 
     return (
         <>
-            {loggedIn ?
+            {userInfo.token ?
                 <h1>Home page, you are logged in!</h1>
                 :
                 <h1>Home page not logged in</h1>

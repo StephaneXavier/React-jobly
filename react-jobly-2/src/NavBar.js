@@ -1,12 +1,12 @@
 import React, {useContext} from 'react';
-import LoggedInContext from './LoggedInContext';
+import UserInfoContext from './UserInfoContext';
 import { Navbar, NavItem, Nav } from 'reactstrap';
 import { NavLink, Link } from 'react-router-dom';
 import './NavBar.css';
 
 
 const NavBar = () => {
-    const loggedIn = useContext(LoggedInContext)
+    const userInfo = useContext(UserInfoContext)
 
 
     return (
@@ -17,7 +17,7 @@ const NavBar = () => {
                 </Link>
 
                 
-                {loggedIn ?
+                {userInfo.username ?
                     <Nav className="ml-auto" navbar>
                         <NavItem>
                             <NavLink to="/companies" >Companies</NavLink>
@@ -29,7 +29,7 @@ const NavBar = () => {
                             <NavLink to="/profile">Profile </NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink to="/logout">Logout </NavLink>
+                            <NavLink to="/logout" >Logout-{userInfo.username} </NavLink>
                         </NavItem>
                     </Nav>
                     :
