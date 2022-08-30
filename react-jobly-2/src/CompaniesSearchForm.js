@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
-import { JoblyApi } from './api';
+
 
 
 const CompaniesSearchForm = ({ addFilter }) => {
     const [searchVal, setSearchVal] = useState('');
-    const history = useHistory()
+   
 
     
 

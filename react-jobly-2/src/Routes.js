@@ -1,7 +1,6 @@
 import React from 'react';
 import Home from './Home';
 import Companies from './Companies';
-import CompanyCard from './CompanyCard';
 import Login from './Login';
 import Register from './Register';
 import Profile from './Profile'

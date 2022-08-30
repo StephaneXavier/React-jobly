@@ -1,14 +1,20 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, {useState, useEffect, useContext } from 'react';
 import CompaniesSearchForm from './CompaniesSearchForm';
-import LoggedInContext from './UserInfoContext'
 import { JoblyApi } from './api';
 import CompanyCard from './CompanyCard';
+import UserInfoContext from './UserInfoContext';
+import { Redirect } from 'react-router-dom';
+import useLocalStorage from './useLocalStorage';
 
 
 const Companies = () => {
+    
     const [companies, setCompanies] = useState([]);
     const [filter, setFilter] = useState('')
-    const loggedIn = useContext(LoggedInContext);
+    const userInfo = useContext(UserInfoContext)
+    console.log('in Companies userInfo is', userInfo)
+
+    if(!userInfo.token) return <Redirect to='/login' />
 
  
     function addFilter(filter){

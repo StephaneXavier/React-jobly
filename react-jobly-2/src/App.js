@@ -1,51 +1,50 @@
-import logo from './logo.svg';
 import './App.css';
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import NavBar from './NavBar'
 import Routes from './Routes';
 import UserInfoContext from './UserInfoContext';
-import {JoblyApi} from './api'
+import { JoblyApi } from './api'
+import useLocalStorage from './useLocalStorage';
 
 
 
 
 function App() {
-    const initialState = {username:'', token:''}
-    const [currentUser, setCurrentUser] = useState(initialState)
+    const [userInfo, setUserInfo] = useLocalStorage();
 
 
-    function registerUser(userInfo){
-        console.log(userInfo)
-        async function getToken(){
-            const token = await JoblyApi.register(userInfo)
-            setCurrentUser({username:userInfo.username, token:token})
+    useEffect(() => {
+        setUserInfo();
+    }, [])
+
+    function registerUser(userInfo) {
+        async function getToken() {
+            const token = await JoblyApi.register(userInfo);
+            setUserInfo({ username: userInfo.username, token: token })
         }
         getToken();
     }
 
-    function loginUser(userInfo){
-        async function getToken(){
-            const token = await JoblyApi.login(userInfo)
-            setCurrentUser({username:userInfo.username, token:token})
+    function loginUser(userInfo) {
+        async function getToken() {
+            const token = await JoblyApi.login(userInfo);
+            setUserInfo({ username: userInfo.username, token: token })
         }
         getToken()
     }
 
-    function logout(){
-        setCurrentUser(initialState)
-    }
+    function logout() {
+        window.localStorage.clear();
+        setUserInfo();
 
-    // useEffect(()=> {
-    //     const{username, token} = currentUser;
-        
-    // }, [currentUser])
+    }
 
 
     return (
         <div className="App">
             <BrowserRouter>
-                <UserInfoContext.Provider value={currentUser}>
+                <UserInfoContext.Provider value={userInfo}>
                     <NavBar />
                     <Routes registerUser={registerUser} loginUser={loginUser} logout={logout} />
                 </UserInfoContext.Provider>

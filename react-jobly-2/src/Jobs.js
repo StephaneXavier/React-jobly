@@ -1,12 +1,19 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { JoblyApi } from './api';
 import JobCard from './JobCard';
 import JobsSearchForm from './JobsSearchForm';
+import UserInfoContext from './UserInfoContext';
+import { Redirect } from 'react-router-dom';
 
 const Jobs = () => {
     const [jobs, setJobs] = useState([]);
     const [filter, setFilter] = useState('');
+    const userInfo = useContext(UserInfoContext);
 
+
+    if(!userInfo.token) return <Redirect to='/login'/>
+
+    
     function addFilter(filter){
         setFilter(filter)
     }
