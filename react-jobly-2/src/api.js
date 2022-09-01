@@ -11,16 +11,17 @@ const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
  */
 
 class JoblyApi {
-  // the token for interactive with the API will be stored here.
-  static token;
 
-  static async request(endpoint, data = {}, method = "get") {
-    console.debug("API Call:", endpoint, data, method);
+ // the token for interactive with the API will be stored here.
+//   static token
+
+  static async request({endpoint, token, data = {}, method = "get"}) {
+    console.debug("API Call:", endpoint, data, method, token);
 
     //there are multiple ways to pass an authorization token, this is how you pass it in the header.
     //this has been provided to show you another way to pass the token. you are only expected to read this code for this project.
     const url = `${BASE_URL}/${endpoint}`;
-    const headers = { Authorization: `Bearer ${JoblyApi.token}` };
+    const headers = { Authorization: `Bearer ${token}` };
     const params = (method === "get")
         ? data
         : {};
@@ -38,47 +39,53 @@ class JoblyApi {
 
   /** Get details on a company by handle. */
 
-  static async getCompany(handle) {
-    let res = await this.request(`companies/${handle}`);
+  static async getCompany(handle, token) {
+    let res = await this.request({endpoint:`companies/${handle}`, token:token});
     return res.company;
   }
 
-  static async getCompanies() {
-    let res = await this.request('companies')
+  static async getCompanies(token) {
+    console.log('in getCompanies', token)
+    let res = await this.request({endpoint:'companies', token:token})
     return res.companies
   }
 
-  static async getFilteredCompanies(filter){
-    let res = await this.request(`companies`, {name:filter})
+  static async getFilteredCompanies(filter,token){
+    let res = await this.request({endpoint:`companies`, token:token, data:{name:filter}})
     return res.companies
   }
 
-  static async getJobs(){
-    let res = await this.request('jobs')
+  static async getJobs(token){
+    let res = await this.request({endpoint:'jobs',token:token})
     return res.jobs
   }
 
-  static async getFilteredJobs(filter){
-    let res = await this.request(`jobs`, {title:filter})
+  static async getFilteredJobs(filter, token){
+    let res = await this.request({endpoint:`jobs`,token:token,data:{title:filter}})
     return res.jobs
   }
 
   static async register(userInfo){
-    let res = await this.request('auth/register', userInfo, 'post')
+    let res = await this.request({endpoint:'auth/register', data:userInfo, method:'post'})
     return res.token
   }
 
   static async login(userInfo){
-    let res = await this.request('auth/token', userInfo, 'post');
+    let res = await this.request({endpoint:'auth/token', data:userInfo, method:'post'});
     return res.token
+  }
+
+  static async getUser(username, token){
+    let res = await this.request({endpoint:`users/${username}`, token:token})
+    return res.user
   }
   // obviously, you'll add a lot here ...
 }
 
 // for now, put token ("testuser" / "password" on class)
-JoblyApi.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
-    "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
-    "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
+// JoblyApi.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
+//     "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
+//     "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
 
 
 

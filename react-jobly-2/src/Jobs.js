@@ -40,7 +40,7 @@ const Jobs = () => {
 
 
 
-   console.log(jobs)
+  
 
     return(
         <div className='Jobs'>

@@ -11,33 +11,28 @@ import useLocalStorage from './useLocalStorage';
 
 
 function App() {
-    const [userInfo, setUserInfo] = useLocalStorage();
+    const [userInfo, setUserInfo, clearUserInfo] = useLocalStorage();
 
 
-    useEffect(() => {
-        setUserInfo();
-    }, [])
-
-    function registerUser(userInfo) {
+    function registerUser(userProvidedInfo) {
         async function getToken() {
-            const token = await JoblyApi.register(userInfo);
-            setUserInfo({ username: userInfo.username, token: token })
+            const token = await JoblyApi.register(userProvidedInfo);
+            setUserInfo(userProvidedInfo.username, token)
         }
         getToken();
     }
 
-    function loginUser(userInfo) {
+    function loginUser(userLoginInfo) {
         async function getToken() {
-            const token = await JoblyApi.login(userInfo);
-            setUserInfo({ username: userInfo.username, token: token })
+            const token = await JoblyApi.login(userLoginInfo);
+            setUserInfo(userLoginInfo.username, token)
         }
+
         getToken()
     }
 
     function logout() {
-        window.localStorage.clear();
-        setUserInfo();
-
+        clearUserInfo();
     }
 
 

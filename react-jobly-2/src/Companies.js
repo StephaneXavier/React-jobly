@@ -11,10 +11,10 @@ const Companies = () => {
     
     const [companies, setCompanies] = useState([]);
     const [filter, setFilter] = useState('')
-    const userInfo = useContext(UserInfoContext)
-    console.log('in Companies userInfo is', userInfo)
+    const {username, token} = useContext(UserInfoContext)
+    
 
-    if(!userInfo.token) return <Redirect to='/login' />
+    if(!token) return <Redirect to='/login' />
 
  
     function addFilter(filter){
@@ -25,7 +25,7 @@ const Companies = () => {
 
     useEffect(() => {
        async function getFilteredCompanies(){
-        const filteredCompanies = await JoblyApi.getFilteredCompanies(filter)
+       const filteredCompanies = await JoblyApi.getFilteredCompanies(filter, token)
         setCompanies(filteredCompanies)
        } 
        getFilteredCompanies()
@@ -36,7 +36,7 @@ const Companies = () => {
     useEffect(() => {
 
         async function getCompanies() {
-            const companiesInfo = await JoblyApi.getCompanies();
+            const companiesInfo = await JoblyApi.getCompanies(token);
             setCompanies(companiesInfo)
         }
         getCompanies()

@@ -1,30 +1,78 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
+import { JoblyApi } from './api'
 
 /*
 function currently works. But re-factor the else clause, as it works the way it is now but appears clunky
-*/ 
+*/
 
 const useLocalStorage = () => {
-    
-    const initialState = JSON.parse(window.localStorage.getItem('userInfo')) || {username:'', token:''};
+    const initialState = JSON.parse(window.localStorage.getItem('userInfo')) || { username: '', token: '', firstName: '', lastName: '', email: '', isAdmin: '' };
 
     const [userInfo, setUserInfo] = useState(initialState);
 
-    function getAndSetUserInfo(providedInfo){
-        
-        if(providedInfo){
-            setUserInfo(providedInfo);
-            window.localStorage.setItem('userInfo', JSON.stringify(providedInfo))
-        }else{
-            console.log('in else', initialState)
-            const fetchedUserInfo = JSON.parse(window.localStorage.getItem('userInfo')) || {username:'', token:''}
-            setUserInfo(fetchedUserInfo)
+    async function getUserDetails(username, token) {
+        const userDetails = await JoblyApi.getUser(username, token);
+        const completeUserInfo = {
+            username: username,
+            token: token,
+            isAmin: userDetails.isAmin,
+            firstName: userDetails.firstName,
+            lastName: userDetails.lastName,
+            email: userDetails.email
         }
-        // setUserInfo(providedInfo? providedInfo :{username:'', token:''} )
+        window.localStorage.setItem('userInfo', JSON.stringify(completeUserInfo))
+        setUserInfo(completeUserInfo)
     }
 
-    return [userInfo,getAndSetUserInfo]
+
+    function clearUserInfo() {
+        window.localStorage.clear();
+        setUserInfo({})
+    }
+
+
+
+    return [userInfo, getUserDetails, clearUserInfo]
 
 }
 
 export default useLocalStorage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function getAndSetUserInfo(providedInfo) {
+    //     console.log('getAndSetUserInfo')
+    //     if (providedInfo) {
+    //         setUserInfo(providedInfo);
+    //         window.localStorage.setItem('userInfo', JSON.stringify(providedInfo))
+    //     } else {
+
+    //         const fetchedUserInfo = JSON.parse(window.localStorage.getItem('userInfo')) || { username: '', token: '', firstName: '', lastName: '', email: '', isAdmin: '' }
+    //         setUserInfo(fetchedUserInfo)
+    //     }
+
+    // }

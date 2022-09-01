@@ -4,17 +4,17 @@ import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 
 const Login = ({loginUser}) => {
 const initialState = {username:'', password:''};
-const [userInfo, setUserInfo] = useState(initialState);
+const [userLoginInfo, setUserInfo] = useState(initialState);
 const history = useHistory();
 
 function handleChange(e){
     const {name, value} = e.target
-    setUserInfo({...userInfo, [name]:value})
+    setUserInfo({...userLoginInfo, [name]:value})
 }
 
 function handleSubmit(e){
     e.preventDefault();
-    loginUser(userInfo);
+    loginUser(userLoginInfo);
     setUserInfo(initialState);
     history.push('/')
 }
@@ -25,7 +25,7 @@ function handleSubmit(e){
             <Label for="username"></Label>
             <Input
                 
-                value={userInfo.username}
+                value={userLoginInfo.username}
                 onChange={handleChange}
                 id="username"
                 name="username"
@@ -38,7 +38,7 @@ function handleSubmit(e){
             <Label for="password"></Label>
             <Input
                 
-                value={userInfo.password}
+                value={userLoginInfo.password}
                 onChange={handleChange}
                 id="password"
                 name="password"
